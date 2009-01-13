@@ -2,24 +2,24 @@ package roteadores.service;
 
 public class No implements Comparable<No>{
 
-	private int id;
+	private String id;
 	
 	private String porta;
 	
 	private String ip;
 	
-	public No(int id, String porta, String ip) {
+	public No(String id, String porta, String ip) {
 		this.id = id;
 		this.porta = porta;
 		this.ip = ip;
 		
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -49,11 +49,11 @@ public class No implements Comparable<No>{
 	}
 	
 	public int compareTo(No no) {
-		return this.id - no.id;
+		return compareTo(no.getId());
 	}
 	
-	public int compareTo(int id) {
-		return this.id - id;
+	public int compareTo(String id) {
+		return this.compareTo(id);
 	}
 	
 	public String toString() {
