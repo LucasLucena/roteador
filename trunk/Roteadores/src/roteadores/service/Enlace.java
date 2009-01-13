@@ -2,13 +2,13 @@ package roteadores.service;
 
 public class Enlace {
 	
-	private int idNoOrigem;
-	private int idNoDestino;
+	private String idNoOrigem;
+	private String idNoDestino;
 	private int custo;
 	
 	
 	
-	public Enlace(int idOrigem, int idDestino, int custo) {
+	public Enlace(String idOrigem, String idDestino, int custo) {
 		this.idNoOrigem = idOrigem;
 		this.idNoDestino = idDestino;
 		this.custo = custo;
@@ -24,31 +24,34 @@ public class Enlace {
 	}
 
 
-	public int getIdNoOrigem() {
+	public String getIdNoOrigem() {
 		return idNoOrigem;
 	}
 
 
-	public void setIdNoOrigem(int idNoOrigem) {
+	public void setIdNoOrigem(String idNoOrigem) {
 		this.idNoOrigem = idNoOrigem;
 	}
 
-
-	public int getIdNoDestino() {
+	public String getIdNoDestino() {
 		return idNoDestino;
 	}
 
 
-	public void setIdNoDestino(int idNoDestino) {
+	public void setIdNoDestino(String idNoDestino) {
 		this.idNoDestino = idNoDestino;
 	}
 	
+	public boolean equals(Object o) {
+		if (!(o instanceof Enlace)){
+			return false;
+		}
+		Enlace other = (Enlace) o;
+		return this.toString().equals(other.toString());
+	}
 	
 	public String toString() {
-		String str = "ID origem = " + this.idNoOrigem + ", " + 
-			"ID destino = " + idNoDestino + ", " + "Custo = " + custo + "\n";
-		return str;
-		
+		return this.idNoDestino + " -> " + this.idNoOrigem + " Custo: " + this.custo;
 	}
 
 }
