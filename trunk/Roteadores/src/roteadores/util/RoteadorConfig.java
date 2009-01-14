@@ -62,6 +62,10 @@ public class RoteadorConfig {
 		return nos.containsKey(id);
 	}
 	
+	public No getNo(String id) {
+		return nos.get(id);
+	}
+	
 	public String toString() {
 		String str = "";
 		

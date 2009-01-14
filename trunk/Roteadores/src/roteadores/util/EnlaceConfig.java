@@ -22,6 +22,7 @@ public class EnlaceConfig {
 	private List<Enlace> enlaces;
 	private LerArquivo leArquivo;
 	private List<String> idVizinhos;
+	private Map<String, List<Vizinho>> vizinhos;
 	
 	public static EnlaceConfig getInstace(Roteador roteador) {
 		if (instancia == null)
@@ -33,7 +34,24 @@ public class EnlaceConfig {
 		this.roteador = roteador;
 		leArquivo = new LerArquivo(nomeArquivo);
 		listaDeEnlace();
-		buscaVizinhos();
+		inicializaVizinhos();
+	}
+	
+	private void inicializaVizinhos() {
+		vizinhos = new HashMap<String, List<Vizinho>>();
+		List<Vizinho> listaDeVizinhos = new ArrayList<Vizinho>();
+		RoteadorConfig roteadorConfig = RoteadorConfig.getInstance();
+		for (Enlace enlace : enlaces) {
+			if (roteador.getId().compareTo( enlace.getIdNoOrigem()) == 0) {
+				listaDeVizinhos.add(new Vizinho(enlace.getCusto(),
+					false,roteadorConfig.getNo(roteador.getId())));
+			}
+		}
+		vizinhos.put(roteador.getId(), listaDeVizinhos);
+	}
+	
+	public List<Vizinho> getVizinhos(String idRoteador) {
+		return vizinhos.get(idRoteador);
 	}
 	
 	private void buscaVizinhos() {
@@ -60,7 +78,6 @@ public class EnlaceConfig {
 			try {
 				enlaces.add(criaEnlace(leArquivo.getLine()));
 			} catch (ArquivoException e) {
-				// TODO TRATAR DEPOIS
 				e.printStackTrace();
 			}
 		}
