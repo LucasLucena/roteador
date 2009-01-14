@@ -35,5 +35,12 @@ public class Vizinho {
 	public void setNo(No no) {
 		this.no = no;
 	}
+	
+	public String toString() {
+		String str = no + " custo " + "status ";
+		if (ligado) str += " ligado.";
+		else str += "desligado";
+		return str;
+	}
 
 }

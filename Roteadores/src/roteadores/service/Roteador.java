@@ -11,11 +11,10 @@ public class Roteador {
 	private String porta;
 	private String ip;
 	private Tabela tabelaRoteamento;
-	private List<No> vizinhos;
+	private List<Vizinho> vizinhos;
 	
 	public Roteador(String id) {
 		this.id = id;
-		//TODO VERIFICA SE O ID EXISTE.
 		
 		RoteadorConfig noConfig = RoteadorConfig.getInstance();
 		if (!noConfig.roteadorExiste(id)) {
@@ -23,13 +22,60 @@ public class Roteador {
 			System.exit(1);
 		}
 		
+		this.ip = noConfig.getNo(id).getIp();
+		this.porta = noConfig.getNo(id).getPorta();
+		
 		EnlaceConfig enlaceConfig = EnlaceConfig.getInstace(this);
 		
-		List<String> idVizinhos = enlaceConfig.getVizinhos();
+		vizinhos = enlaceConfig.getVizinhos(id);
 	}
 	
 	public String getId() {
 		return this.id;
+	}
+
+	public String getPorta() {
+		return porta;
+	}
+
+	public void setPorta(String porta) {
+		this.porta = porta;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public List<Vizinho> getVizinhos() {
+		return vizinhos;
+	}
+
+	public void setVizinhos(List<Vizinho> vizinhos) {
+		this.vizinhos = vizinhos;
+	}
+	
+	public Vizinho getVizinho(String id) {
+		for (Vizinho vizinho : vizinhos) {
+			if (vizinho.getNo().getId().compareTo(id) == 0)
+				return vizinho;
+		}
+		return null;
+	}
+	
+	public boolean ehVizinho(String id) {
+		for (Vizinho vizinho : vizinhos) {
+			if (vizinho.getNo().getId().compareTo(id) == 0)
+				return true;
+		}
+		return false;
 	}
 
 }
