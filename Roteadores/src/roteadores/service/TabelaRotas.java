@@ -8,7 +8,7 @@ import java.util.Set;
 import roteadores.util.EnlaceConfig;
 import roteadores.util.RoteadorConfig;
 
-public class Tabela {
+public class TabelaRotas {
 
 	final int INFINITY = 999;
 	
@@ -16,13 +16,13 @@ public class Tabela {
 	private Map<String, Integer> vetorDistancia;
 	private RoteadorConfig roteadorConfig;
 	
-	public Tabela(Roteador roteador) {
+	public TabelaRotas(Roteador roteador) {
 		this.roteador = roteador;
 		vetorDistancia = new HashMap<String, Integer>();
 		roteadorConfig = RoteadorConfig.getInstance();
 	}
 	
-	private void inicializar() {
+	public void inicializar() {
 		
 		Set<String> roteadores = roteadorConfig.getIdNos();
 		for (String idNo : roteadores) {
@@ -34,6 +34,22 @@ public class Tabela {
 				vetorDistancia.put(roteador.getId(), INFINITY);
 			
 		}
+	}
+
+	public Roteador getRoteador() {
+		return roteador;
+	}
+
+	public void setRoteador(Roteador roteador) {
+		this.roteador = roteador;
+	}
+
+	public Map<String, Integer> getVetorDistancia() {
+		return vetorDistancia;
+	}
+
+	public void setVetorDistancia(Map<String, Integer> vetorDistancia) {
+		this.vetorDistancia = vetorDistancia;
 	}
 	
 	
